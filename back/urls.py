@@ -6,8 +6,8 @@ from django.conf.urls import handler404
 from main import views
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
-# from strawberry.django.views import GraphQLView
-# from main.graphql.scheme import schema
+from strawberry.django.views import GraphQLView
+from main.graphql.scheme import schema
 
 
 handler404 = views.error404
@@ -15,6 +15,7 @@ handler404 = views.error404
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
+    re_path(r'^graphql/?$', GraphQLView.as_view(schema=schema), name='graphql'),
     # re_path(r'^graphql/?$', csrf_exempt(jwt_cookie(GraphQLView.as_view(schema=schema))), name='graphql'),
     path('adminactions/', include('adminactions.urls')),
     path("", include("main.urls")),

@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "main",
-    # 'strawberry_django',
+    'strawberry_django',
     "tinymce",
     "import_export",
     'debug_toolbar',
@@ -41,7 +41,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",   
     'simple_history.middleware.HistoryRequestMiddleware',
-    # 'strawberry_django.middlewares.debug_toolbar.DebugToolbarMiddleware',
+    'strawberry_django.middlewares.debug_toolbar.DebugToolbarMiddleware',
     'django.middleware.locale.LocaleMiddleware',
 ]
 
