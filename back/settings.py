@@ -23,16 +23,16 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'strawberry_django',
-    'gqlauth',
     "main",
     "tinymce",
     "import_export",
     'debug_toolbar',
     'simple_history',
     'corsheaders',
+    'gqlauth',
 ]
 
-# AUTH_USER_MODEL = 'main.UserMode'
+AUTH_USER_MODEL = 'main.UserModel'
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -56,6 +56,7 @@ AUTHENTICATION_BACKENDS = [
 GQL_AUTH = GqlAuthSettings(
     LOGIN_REQUIRE_CAPTCHA=False,
     REGISTER_REQUIRE_CAPTCHA=False,
+    ALLOW_DELETE_ACCOUNT=True,
 )
 
 CORS_ORIGIN_ALLOW_ALL = False

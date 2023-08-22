@@ -1,8 +1,7 @@
 
 from django.contrib import admin
-from django.urls import path, include, re_path
+from django.urls import path, include
 from django.conf.urls import handler404
-
 from main import views
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt

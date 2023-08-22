@@ -5,4 +5,4 @@ from gqlauth.user.queries import UserQueries
 
 @strawberry.type
 class Query(UserQueries):
-    tmps: list[TmpType] = strawberry.django.field()
+    tmps: list[TmpType] = strawberry.django.field(permission_classes=[IsAuthenticated], )
