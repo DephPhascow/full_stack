@@ -1,14 +1,13 @@
 import strawberry
 from strawberry_django.optimizer import DjangoOptimizerExtension
 from .query import Query
-# from .mutate import Mutation
-# from strawberry_django_jwt.middleware import JSONWebTokenMiddleware
+from .mutate import Mutation
+
 
 schema = strawberry.Schema(
     query=Query,
-    # mutation=Mutation,
+    mutation=Mutation,
     extensions=[
         DjangoOptimizerExtension,
-        # JSONWebTokenMiddleware,
     ],
 )
