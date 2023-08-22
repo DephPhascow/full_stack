@@ -13,3 +13,4 @@ media/
 *.json
 vscode/
 *.tar.gz
+!requirements.txt

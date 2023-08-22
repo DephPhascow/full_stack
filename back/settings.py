@@ -2,6 +2,7 @@ from pathlib import Path
 import constants
 BASE_DIR = Path(__file__).resolve().parent.parent
 import os
+from gqlauth.settings_type import GqlAuthSettings
 
 
 SECRET_KEY = constants.SECRET
@@ -21,15 +22,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "main",
     'strawberry_django',
+    'gqlauth',
+    "main",
     "tinymce",
     "import_export",
     'debug_toolbar',
     'simple_history',
     'corsheaders',
-    # 'strawberry_django_jwt.refresh_token',
 ]
+
+# AUTH_USER_MODEL = 'main.UserMode'
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -38,6 +41,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "gqlauth.core.middlewares.django_jwt_middleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",   
     'simple_history.middleware.HistoryRequestMiddleware',
@@ -46,9 +50,13 @@ MIDDLEWARE = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    # 'strawberry_django_jwt.backends.JSONWebTokenBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+GQL_AUTH = GqlAuthSettings(
+    LOGIN_REQUIRE_CAPTCHA=False,
+    REGISTER_REQUIRE_CAPTCHA=False,
+)
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = ['http://localhost:8080']
@@ -77,14 +85,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "back.wsgi.application"
 
+# DATABASES = {
+#     "default": {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': constants.DB_NAME,
+#         'USER': constants.DB_LOGIN,
+#         'PASSWORD': constants.DB_PASSWORD,
+#         'HOST': constants.DB_HOST,
+#         'PORT': constants.DB_PORT
+#     }
+# }
 DATABASES = {
-    "default": {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': constants.DB_NAME,
-        'USER': constants.DB_LOGIN,
-        'PASSWORD': constants.DB_PASSWORD,
-        'HOST': constants.DB_HOST,
-        'PORT': constants.DB_PORT
+    'default': {
+        #sqlite3
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
