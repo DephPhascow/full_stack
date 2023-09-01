@@ -13,6 +13,7 @@ ALLOWED_HOSTS = ['127.0.0.1', constants.SITE_HOST]
 
 
 INSTALLED_APPS = [
+    'daphne',
     'adminactions',
     'django_admin_index',
     'ordered_model',
@@ -85,6 +86,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "back.wsgi.application"
+ASGI_APPLICATION = "back.asgi.application"
 
 # DATABASES = {
 #     "default": {

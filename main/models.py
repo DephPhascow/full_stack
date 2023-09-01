@@ -4,6 +4,8 @@ from ool import VersionField, VersionedMixin
 from tinymce.models import HTMLField
 from django.contrib.auth.models import AbstractUser, Group, Permission
 
+from main.managers import TmpCustomManager
+
 gettext = lambda s: s
 
 
@@ -45,8 +47,11 @@ class TmpModel(VersionedMixin, models.Model):
     role = models.CharField(max_length=100, choices=TmpRoleEnum.choices, verbose_name=gettext("Роль"), default=TmpRoleEnum.SIMPLE)
     history = HistoricalRecords()
     version = VersionField()
+    custom_manager = TmpCustomManager()
     class Meta:
         verbose_name = "TmpModel"
         verbose_name_plural = "TmpModels"
+        base_manager_name = 'custom_manager'    
     def __str__(self):
         return self.name
+    #TmpModel.custom_manager.get_by_name('Deph')

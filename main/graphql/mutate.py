@@ -1,5 +1,10 @@
+import asyncio
 from gqlauth.user import arg_mutations as mutations
 import strawberry
+from asgiref.sync import async_to_sync, sync_to_async
+from main.graphql.types import TmpType
+from main.models import TmpModel
+from django.core.serializers import deserialize, serialize
 
 @strawberry.type
 class Mutation:
@@ -17,3 +22,14 @@ class Mutation:
     password_set = mutations.PasswordSet.field
     refresh_token = mutations.RefreshToken.field
     revoke_token = mutations.RevokeToken.field
+    @strawberry.mutation
+    def add_tmp(self, info, name: str, description: str) -> str:
+        instance = TmpModel(
+            name=name,
+            description=description
+        )
+        instance.save()
+        asyncio.run(info.context.broadcast.publish(
+            channel="heros", message=serialize("json", [instance])
+        ))
+        return "heree"
