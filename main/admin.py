@@ -7,11 +7,22 @@ from modeltranslation.admin import TranslationAdmin
 
 @admin.register(models.TmpModel)
 class TmpAdmin(TranslationAdmin, ImportExportModelAdmin):
-    list_display = ('name', 'description', 'role', 'version', )
+    list_display = ('name', 'image', 'description', 'role', 'version', )
     list_display_links = ('name', )
     list_filter = ('role', TmpFilter,)
     search_fields = ('name', 'description', )
     readonly_fields = ('version', )
+    sortable_field_name = "name"
+    fieldsets = (
+        ('', {
+            'fields': ('name', 'description', ),
+        }),
+        ("Image Inlines", {"classes": ("placeholder images-group",), "fields" : ('image', )}),
+        ('FieldSetName2', { # видимый панель
+            'classes': ('grp-collapse grp-open',), # grp-closed' - скрытый панель
+            'fields' : ('role',),
+        }),
+    )
 
 
 admin.site.site_header = "Django Admin"

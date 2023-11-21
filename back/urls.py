@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from strawberry.django.views import GraphQLView
 from main.graphql.scheme import schema
 from main.graphql.view import GraphQLView as GQV
+from django.conf.urls.static import static
 
 
 handler404 = views.error404
@@ -33,4 +34,4 @@ if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
         path('__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
+    ] + urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

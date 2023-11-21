@@ -44,6 +44,7 @@ class TmpModel(VersionedMixin, models.Model):
     name = models.CharField(max_length=100, verbose_name=gettext("Название"))
     description = HTMLField(max_length=100, verbose_name=gettext("Описание"))
     role = models.CharField(max_length=100, choices=TmpRoleEnum.choices, verbose_name=gettext("Роль"), default=TmpRoleEnum.SIMPLE)
+    image = models.ImageField(upload_to='images/', verbose_name=gettext("Изображение"), blank=True, null=True)
     version = VersionField()
     custom_manager = TmpCustomManager()
     class Meta:
@@ -52,4 +53,7 @@ class TmpModel(VersionedMixin, models.Model):
         base_manager_name = 'custom_manager'    
     def __str__(self):
         return self.name
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("id__iexact", "name__icontains",)
     #TmpModel.custom_manager.get_by_name('Deph')
