@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'adminactions',
     'django_admin_index',
     'ordered_model',
+    'grappelli',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

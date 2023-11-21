@@ -16,6 +16,7 @@ handler404 = views.error404
 
 urlpatterns = [
     path('admin/defender/', include('defender.urls')),
+    path('grappelli/', include('grappelli.urls')),
     path("admin/", admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     # path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema, subscriptions_enabled=True)), name='graphql'),
