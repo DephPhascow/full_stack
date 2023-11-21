@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'corsheaders',
     'gqlauth',
+    'defender',
 ]
 
 AUTH_USER_MODEL = 'main.UserModel'
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",   
     'strawberry_django.middlewares.debug_toolbar.DebugToolbarMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'defender.middleware.FailedLoginMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = [

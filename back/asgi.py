@@ -12,9 +12,6 @@ from main.graphql.scheme import schema
 django_application = get_asgi_application()
 
 async def application(scope, receive, send):
-    # TODO: always use ASGI graphql
-
-    print(scope["type"])
     if scope["type"] == "http":
         await django_application(scope, receive, send)
     elif scope["type"] == "websocket":
