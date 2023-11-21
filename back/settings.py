@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'gqlauth',
     'defender',
+    'rest_framework',
+    # 'sysmon',
 ]
 
 AUTH_USER_MODEL = 'main.UserModel'

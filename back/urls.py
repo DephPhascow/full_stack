@@ -23,6 +23,7 @@ urlpatterns = [
     # path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema, subscriptions_enabled=True)), name='graphql'),
     path('i18n/', include('django.conf.urls.i18n')),
     path('graphql/', csrf_exempt(GQV.as_view(graphiql=True, schema=schema, subscriptions_enabled=True)), name='graphql'),
+    path('rest/', include('main.rest.urls')),
     path('adminactions/', include('adminactions.urls')),
     path("", include("main.urls")),
 ]

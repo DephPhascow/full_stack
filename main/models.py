@@ -47,6 +47,7 @@ class TmpModel(VersionedMixin, models.Model):
     image = models.ImageField(upload_to='images/', verbose_name=gettext("Изображение"), blank=True, null=True)
     version = VersionField()
     custom_manager = TmpCustomManager()
+    objects = models.Manager()
     class Meta:
         verbose_name = "TmpModel"
         verbose_name_plural = "TmpModels"
