@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'gqlauth',
     'defender',
     'rest_framework',
-    # 'sysmon',
+    'djangoql',
 ]
 
 AUTH_USER_MODEL = 'main.UserModel'
