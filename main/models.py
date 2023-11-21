@@ -1,5 +1,4 @@
 from django.db import models
-from simple_history.models import HistoricalRecords
 from ool import VersionField, VersionedMixin
 from tinymce.models import HTMLField
 from django.contrib.auth.models import AbstractUser, Group, Permission
@@ -45,7 +44,6 @@ class TmpModel(VersionedMixin, models.Model):
     name = models.CharField(max_length=100, verbose_name=gettext("Название"))
     description = HTMLField(max_length=100, verbose_name=gettext("Описание"))
     role = models.CharField(max_length=100, choices=TmpRoleEnum.choices, verbose_name=gettext("Роль"), default=TmpRoleEnum.SIMPLE)
-    history = HistoricalRecords()
     version = VersionField()
     custom_manager = TmpCustomManager()
     class Meta:

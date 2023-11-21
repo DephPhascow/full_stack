@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import handler404
 from main import views
+from django.conf.urls.i18n import i18n_patterns
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from strawberry.django.views import GraphQLView
@@ -17,10 +18,14 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     # path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema, subscriptions_enabled=True)), name='graphql'),
+    path('i18n/', include('django.conf.urls.i18n')),
     path('graphql/', csrf_exempt(GQV.as_view(graphiql=True, schema=schema, subscriptions_enabled=True)), name='graphql'),
     path('adminactions/', include('adminactions.urls')),
     path("", include("main.urls")),
 ]
+
+urlpatterns += i18n_patterns (
+)
 
 if settings.DEBUG:
     import debug_toolbar

@@ -1,13 +1,13 @@
 from django.contrib import admin
-from simple_history.admin import SimpleHistoryAdmin
 from import_export.admin import ImportExportModelAdmin
 import adminactions.actions as actions
 from main import models
 from .filters.tmp_filter import TmpFilter 
+from modeltranslation.admin import TranslationAdmin
+
 @admin.register(models.TmpModel)
-class TmpAdmin(SimpleHistoryAdmin, ImportExportModelAdmin):
+class TmpAdmin(TranslationAdmin, ImportExportModelAdmin):
     list_display = ('name', 'description', 'role', 'version', )
-    history_list_display = ["date", "change_reason", "type", "user_id", "status"]
     list_display_links = ('name', )
     list_filter = ('role', TmpFilter,)
     search_fields = ('name', 'description', )

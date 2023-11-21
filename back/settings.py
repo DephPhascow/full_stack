@@ -13,6 +13,7 @@ ALLOWED_HOSTS = ['127.0.0.1', constants.SITE_HOST]
 
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'daphne',
     'adminactions',
     'django_admin_index',
@@ -28,7 +29,6 @@ INSTALLED_APPS = [
     "tinymce",
     "import_export",
     'debug_toolbar',
-    'simple_history',
     'corsheaders',
     'gqlauth',
 ]
@@ -37,6 +37,7 @@ AUTH_USER_MODEL = 'main.UserModel'
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -45,7 +46,6 @@ MIDDLEWARE = [
     "gqlauth.core.middlewares.django_jwt_middleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",   
-    'simple_history.middleware.HistoryRequestMiddleware',
     'strawberry_django.middlewares.debug_toolbar.DebugToolbarMiddleware',
     'django.middleware.locale.LocaleMiddleware',
 ]
@@ -135,9 +135,12 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = "media/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+gettext = lambda s: s
+LANGUAGES = (
+  ('ru', gettext('Russia')),
+)
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, "locale/"), )
-SIMPLE_HISTORY_REVERT_DISABLED = False
 
 STRAWBERRY_DJANGO = {
     "FIELD_DESCRIPTION_FROM_HELP_TEXT": True,
