@@ -14,7 +14,6 @@ from django.conf.urls.static import static
 
 handler404 = views.error404
 
-
 urlpatterns = [
     path('admin/defender/', include('defender.urls')),
     path('grappelli/', include('grappelli.urls')),

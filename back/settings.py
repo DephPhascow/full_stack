@@ -3,7 +3,7 @@ import constants
 BASE_DIR = Path(__file__).resolve().parent.parent
 import os
 from gqlauth.settings_type import GqlAuthSettings
-
+import sentry_sdk
 
 SECRET_KEY = constants.SECRET
 
@@ -157,3 +157,9 @@ STRAWBERRY_DJANGO = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+sentry_sdk.init(
+    dsn=constants.SENTRY_TOKEN,
+    traces_sample_rate=1.0,
+    profiles_sample_rate=1.0,
+)
