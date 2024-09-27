@@ -71,7 +71,7 @@ strawberry-django-auth==0.376.2
 strawberry-graphql==0.204.0
 strawberry-graphql-django==0.16.0
 tablib==3.5.0
-Twisted==23.8.0
+Twisted==24.7.0
 twisted-iocpsupport==1.0.4
 txaio==23.1.1
 types-pytz==2023.3.0.1
