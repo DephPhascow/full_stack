@@ -1,27 +1,35 @@
 import os
-
-from main.graphql.MyGraphQL import MyGraphQL
+from channels.auth import AuthMiddlewareStack
+from channels.routing import ProtocolTypeRouter, URLRouter
+from django.urls import re_path
+from strawberry.channels import GraphQLHTTPConsumer, GraphQLWSConsumer
 from django.core.asgi import get_asgi_application
-from starlette.websockets import WebSocketDisconnect
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'back.settings')
+http = get_asgi_application()
 
 from main.graphql.scheme import schema
 
-django_application = get_asgi_application()
+from gqlauth.core.middlewares import channels_jwt_middleware
+from main.consumers import WebSocketTmpConsumer
 
-async def application(scope, receive, send):
-    if scope["type"] == "http":
-        await django_application(scope, receive, send)
-    elif scope["type"] == "websocket":
-        try:
-            from main.graphql.scheme import schema
+graphq_websocket_urlpatterns = [
+    re_path("^graphql", channels_jwt_middleware(GraphQLWSConsumer.as_asgi(schema=schema))),
+    re_path('^ws/(?P<room_name>\w+)/$', WebSocketTmpConsumer.as_asgi()),
+]
+gql_http_consumer = AuthMiddlewareStack(
+    channels_jwt_middleware(GraphQLHTTPConsumer.as_asgi(schema=schema))
+)
 
-            graphql_app = MyGraphQL(schema, keep_alive=True, keep_alive_interval=5)
-
-            await graphql_app(scope, receive, send)
-        except WebSocketDisconnect:
-            pass
-    else:
-        raise NotImplementedError(f"Unknown scope type {scope['type']}")
+application = ProtocolTypeRouter(
+    {
+        "http": URLRouter(
+            [
+                re_path("^graphql", gql_http_consumer),
+                re_path("^", http),
+            ]
+        ),
+        "websocket": AuthMiddlewareStack(URLRouter(graphq_websocket_urlpatterns)),
+    }
+)

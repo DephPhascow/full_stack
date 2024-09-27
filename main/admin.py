@@ -2,12 +2,11 @@ from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
 import adminactions.actions as actions
 from main import models
-from .filters.tmp_filter import TmpFilter 
-from modeltranslation.admin import TranslationAdmin
+from .filters.tmp_filter import TmpFilter
 from djangoql.admin import DjangoQLSearchMixin
 
 @admin.register(models.TmpModel)
-class TmpAdmin(TranslationAdmin, DjangoQLSearchMixin, ImportExportModelAdmin):
+class TmpAdmin(DjangoQLSearchMixin, ImportExportModelAdmin):
     list_display = ('name', 'image', 'description', 'role', 'version', )
     list_display_links = ('name', )
     list_filter = ('role', TmpFilter,)

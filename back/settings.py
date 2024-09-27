@@ -3,7 +3,6 @@ import constants
 BASE_DIR = Path(__file__).resolve().parent.parent
 import os
 from gqlauth.settings_type import GqlAuthSettings
-import sentry_sdk
 
 SECRET_KEY = constants.SECRET
 
@@ -13,12 +12,11 @@ ALLOWED_HOSTS = ['127.0.0.1', constants.SITE_HOST]
 
 
 INSTALLED_APPS = [
-    'modeltranslation',
     'daphne',
+    'jazzmin',
     'adminactions',
     'django_admin_index',
     'ordered_model',
-    'grappelli',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -32,7 +30,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'corsheaders',
     'gqlauth',
-    'defender',
+    # 'defender',
     'rest_framework',
     'djangoql',
 ]
@@ -52,7 +50,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",   
     'strawberry_django.middlewares.debug_toolbar.DebugToolbarMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'defender.middleware.FailedLoginMiddleware',
+    # 'defender.middleware.FailedLoginMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -157,9 +155,3 @@ STRAWBERRY_DJANGO = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-sentry_sdk.init(
-    dsn=constants.SENTRY_TOKEN,
-    traces_sample_rate=1.0,
-    profiles_sample_rate=1.0,
-)
